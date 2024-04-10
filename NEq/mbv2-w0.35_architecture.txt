@@ -1,0 +1,137 @@
+Sequential(
+  (0): QuantizedConv2dDiff(3, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+  (1): Sequential(
+    (0): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
+        (1): QuantizedConv2dDiff(16, 8, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (1): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(8, 48, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(48, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=48)
+        (2): QuantizedConv2dDiff(48, 8, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (2): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(8, 48, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48)
+        (2): QuantizedConv2dDiff(48, 8, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (3): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(8, 48, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(48, 48, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=48)
+        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (4): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(16, 96, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        (2): QuantizedConv2dDiff(96, 16, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (5): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(16, 96, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(96, 96, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=96)
+        (2): QuantizedConv2dDiff(96, 16, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (6): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(16, 96, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(96, 96, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=96)
+        (2): QuantizedConv2dDiff(96, 24, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (7): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(24, 144, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144)
+        (2): QuantizedConv2dDiff(144, 24, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (8): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(24, 144, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144)
+        (2): QuantizedConv2dDiff(144, 24, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (9): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(24, 144, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144)
+        (2): QuantizedConv2dDiff(144, 24, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (10): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(24, 144, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144)
+        (2): QuantizedConv2dDiff(144, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (11): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(32, 192, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        (2): QuantizedConv2dDiff(192, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (12): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(32, 192, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(192, 192, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=192)
+        (2): QuantizedConv2dDiff(192, 32, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (13): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(32, 192, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(192, 192, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), groups=192)
+        (2): QuantizedConv2dDiff(192, 56, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+    (14): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(56, 336, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(336, 336, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=336)
+        (2): QuantizedConv2dDiff(336, 56, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (15): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(56, 336, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(336, 336, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=336)
+        (2): QuantizedConv2dDiff(336, 56, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (q_add): QuantizedElementwiseDiff()
+    )
+    (16): QuantizedMbBlockDiff(
+      (conv): Sequential(
+        (0): QuantizedConv2dDiff(56, 336, kernel_size=(1, 1), stride=(1, 1))
+        (1): QuantizedConv2dDiff(336, 336, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=336)
+        (2): QuantizedConv2dDiff(336, 112, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+  (2): Identity()
+  (3): QuantizedAvgPoolDiff()
+  (4): ScaledLinear(in_features=112, out_features=10, bias=True)
+  (5): Flatten(start_dim=1, end_dim=-1)
+)

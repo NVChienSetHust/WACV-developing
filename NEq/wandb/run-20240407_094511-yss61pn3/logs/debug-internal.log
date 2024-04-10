@@ -1,0 +1,173 @@
+2024-04-07 09:45:11,204 INFO    StreamThr :614867 [internal.py:wandb_internal():87] W&B internal server running at pid: 614867, started at: 2024-04-07 09:45:11.202930
+2024-04-07 09:45:11,206 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: status
+2024-04-07 09:45:11,209 INFO    WriterThread:614867 [datastore.py:open_for_write():85] open: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/run-yss61pn3.wandb
+2024-04-07 09:45:11,212 DEBUG   SenderThread:614867 [sender.py:send():336] send: header
+2024-04-07 09:45:11,223 DEBUG   SenderThread:614867 [sender.py:send():336] send: run
+2024-04-07 09:45:11,740 INFO    SenderThread:614867 [dir_watcher.py:__init__():219] watching files in: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files
+2024-04-07 09:45:11,740 INFO    SenderThread:614867 [sender.py:_start_run_threads():1078] run started: yss61pn3 with start time 1712475911.204741
+2024-04-07 09:45:11,740 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: summary_record
+2024-04-07 09:45:11,741 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: check_version
+2024-04-07 09:45:11,743 INFO    SenderThread:614867 [sender.py:_save_file():1332] saving file wandb-summary.json with policy end
+2024-04-07 09:45:11,743 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: check_version
+2024-04-07 09:45:11,877 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: run_start
+2024-04-07 09:45:11,937 DEBUG   HandlerThread:614867 [system_info.py:__init__():31] System info init
+2024-04-07 09:45:11,937 DEBUG   HandlerThread:614867 [system_info.py:__init__():46] System info init done
+2024-04-07 09:45:11,937 INFO    HandlerThread:614867 [system_monitor.py:start():183] Starting system monitor
+2024-04-07 09:45:11,938 INFO    SystemMonitor:614867 [system_monitor.py:_start():147] Starting system asset monitoring threads
+2024-04-07 09:45:11,940 INFO    HandlerThread:614867 [system_monitor.py:probe():204] Collecting system info
+2024-04-07 09:45:11,941 INFO    SystemMonitor:614867 [interfaces.py:start():187] Started cpu monitoring
+2024-04-07 09:45:11,942 INFO    SystemMonitor:614867 [interfaces.py:start():187] Started disk monitoring
+2024-04-07 09:45:11,944 INFO    SystemMonitor:614867 [interfaces.py:start():187] Started gpu monitoring
+2024-04-07 09:45:11,945 INFO    SystemMonitor:614867 [interfaces.py:start():187] Started memory monitoring
+2024-04-07 09:45:11,946 INFO    SystemMonitor:614867 [interfaces.py:start():187] Started network monitoring
+2024-04-07 09:45:12,003 DEBUG   HandlerThread:614867 [system_info.py:probe():195] Probing system
+2024-04-07 09:45:12,009 DEBUG   HandlerThread:614867 [system_info.py:_probe_git():180] Probing git
+2024-04-07 09:45:12,022 DEBUG   HandlerThread:614867 [system_info.py:_probe_git():188] Probing git done
+2024-04-07 09:45:12,023 DEBUG   HandlerThread:614867 [system_info.py:probe():240] Probing system done
+2024-04-07 09:45:12,023 DEBUG   HandlerThread:614867 [system_monitor.py:probe():213] {'os': 'Linux-5.15.0-91-generic-x86_64-with-glibc2.35', 'python': '3.10.12', 'heartbeatAt': '2024-04-07T07:45:12.004113', 'startedAt': '2024-04-07T07:45:11.173815', 'docker': None, 'cuda': None, 'args': (), 'state': 'running', 'program': '/home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/pickle_analysis.py', 'codePath': 'NEq/pickle_analysis.py', 'git': {'remote': 'https://github.com/NVChienSetHust/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint.git', 'commit': '3df06a92da669e9481fd47b3018af7af6f2d865c'}, 'email': 'chien.nv.set@gmail.com', 'root': '/home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint', 'host': 'gpu2.enst.fr', 'username': 'vnguyen-23', 'executable': '/usr/bin/python3', 'cpu_count': 24, 'cpu_count_logical': 48, 'cpu_freq': {'current': 2943.9758125000003, 'min': 0.0, 'max': 0.0}, 'cpu_freq_per_core': [{'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 1200.007, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}, {'current': 3000.0, 'min': 0.0, 'max': 0.0}], 'disk': {'total': 438.05088806152344, 'used': 369.39117431640625}, 'gpu': 'Tesla V100-PCIE-16GB', 'gpu_count': 3, 'gpu_devices': [{'name': 'Tesla V100-PCIE-16GB', 'memory_total': 17179869184}, {'name': 'Tesla V100-PCIE-32GB', 'memory_total': 34359738368}, {'name': 'Tesla V100-PCIE-16GB', 'memory_total': 17179869184}], 'memory': {'total': 187.58420181274414}}
+2024-04-07 09:45:12,023 INFO    HandlerThread:614867 [system_monitor.py:probe():214] Finished collecting system info
+2024-04-07 09:45:12,023 INFO    HandlerThread:614867 [system_monitor.py:probe():217] Publishing system info
+2024-04-07 09:45:12,023 DEBUG   HandlerThread:614867 [system_info.py:_save_pip():51] Saving list of pip packages installed into the current environment
+2024-04-07 09:45:12,026 DEBUG   HandlerThread:614867 [system_info.py:_save_pip():67] Saving pip packages done
+2024-04-07 09:45:12,030 INFO    HandlerThread:614867 [system_monitor.py:probe():219] Finished publishing system info
+2024-04-07 09:45:12,044 DEBUG   SenderThread:614867 [sender.py:send():336] send: files
+2024-04-07 09:45:12,044 INFO    SenderThread:614867 [sender.py:_save_file():1332] saving file wandb-metadata.json with policy now
+2024-04-07 09:45:12,058 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: stop_status
+2024-04-07 09:45:12,060 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: stop_status
+2024-04-07 09:45:12,306 DEBUG   SenderThread:614867 [sender.py:send():336] send: telemetry
+2024-04-07 09:45:12,316 DEBUG   SenderThread:614867 [sender.py:send():336] send: exit
+2024-04-07 09:45:12,316 INFO    SenderThread:614867 [sender.py:send_exit():559] handling exit code: 1
+2024-04-07 09:45:12,316 INFO    SenderThread:614867 [sender.py:send_exit():561] handling runtime: 0
+2024-04-07 09:45:12,319 INFO    SenderThread:614867 [sender.py:_save_file():1332] saving file wandb-summary.json with policy end
+2024-04-07 09:45:12,320 INFO    SenderThread:614867 [sender.py:send_exit():567] send defer
+2024-04-07 09:45:12,320 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,320 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 0
+2024-04-07 09:45:12,321 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,321 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 0
+2024-04-07 09:45:12,321 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 1
+2024-04-07 09:45:12,321 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,321 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 1
+2024-04-07 09:45:12,322 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,322 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 1
+2024-04-07 09:45:12,322 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 2
+2024-04-07 09:45:12,322 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,323 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 2
+2024-04-07 09:45:12,323 INFO    HandlerThread:614867 [system_monitor.py:finish():193] Stopping system monitor
+2024-04-07 09:45:12,324 DEBUG   SystemMonitor:614867 [system_monitor.py:_start():161] Starting system metrics aggregation loop
+2024-04-07 09:45:12,324 INFO    HandlerThread:614867 [interfaces.py:finish():199] Joined cpu monitor
+2024-04-07 09:45:12,325 DEBUG   SystemMonitor:614867 [system_monitor.py:_start():168] Finished system metrics aggregation loop
+2024-04-07 09:45:12,325 INFO    HandlerThread:614867 [interfaces.py:finish():199] Joined disk monitor
+2024-04-07 09:45:12,325 DEBUG   SystemMonitor:614867 [system_monitor.py:_start():172] Publishing last batch of metrics
+2024-04-07 09:45:12,518 INFO    HandlerThread:614867 [interfaces.py:finish():199] Joined gpu monitor
+2024-04-07 09:45:12,518 INFO    HandlerThread:614867 [interfaces.py:finish():199] Joined memory monitor
+2024-04-07 09:45:12,518 INFO    HandlerThread:614867 [interfaces.py:finish():199] Joined network monitor
+2024-04-07 09:45:12,519 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,519 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 2
+2024-04-07 09:45:12,519 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 3
+2024-04-07 09:45:12,520 DEBUG   SenderThread:614867 [sender.py:send():336] send: stats
+2024-04-07 09:45:12,520 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,521 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 3
+2024-04-07 09:45:12,521 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,521 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 3
+2024-04-07 09:45:12,521 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 4
+2024-04-07 09:45:12,522 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,522 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 4
+2024-04-07 09:45:12,522 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,522 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 4
+2024-04-07 09:45:12,522 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 5
+2024-04-07 09:45:12,523 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,523 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 5
+2024-04-07 09:45:12,523 DEBUG   SenderThread:614867 [sender.py:send():336] send: summary
+2024-04-07 09:45:12,526 INFO    SenderThread:614867 [sender.py:_save_file():1332] saving file wandb-summary.json with policy end
+2024-04-07 09:45:12,526 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,526 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 5
+2024-04-07 09:45:12,526 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 6
+2024-04-07 09:45:12,527 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,527 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 6
+2024-04-07 09:45:12,527 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,527 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 6
+2024-04-07 09:45:12,533 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: status_report
+2024-04-07 09:45:12,705 INFO    wandb-upload_0:614867 [upload_job.py:push():138] Uploaded file /tmp/tmpqmfp1c7gwandb/9pp9anl5-wandb-metadata.json
+2024-04-07 09:45:12,746 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 7
+2024-04-07 09:45:12,751 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_modified():295] file/dir modified: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/config.yaml
+2024-04-07 09:45:12,752 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:12,752 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_created():278] file/dir created: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/requirements.txt
+2024-04-07 09:45:12,752 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 7
+2024-04-07 09:45:12,752 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_created():278] file/dir created: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/output.log
+2024-04-07 09:45:12,753 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_created():278] file/dir created: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/wandb-summary.json
+2024-04-07 09:45:12,753 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:12,753 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_created():278] file/dir created: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/wandb-metadata.json
+2024-04-07 09:45:12,753 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 7
+2024-04-07 09:45:13,082 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: poll_exit
+2024-04-07 09:45:14,322 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 8
+2024-04-07 09:45:14,323 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: poll_exit
+2024-04-07 09:45:14,323 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:14,323 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 8
+2024-04-07 09:45:14,324 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:14,324 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 8
+2024-04-07 09:45:14,343 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 9
+2024-04-07 09:45:14,344 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:14,344 DEBUG   SenderThread:614867 [sender.py:send():336] send: artifact
+2024-04-07 09:45:14,344 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 9
+2024-04-07 09:45:14,749 INFO    Thread-13 :614867 [dir_watcher.py:_on_file_modified():295] file/dir modified: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/output.log
+2024-04-07 09:45:15,678 INFO    wandb-upload_0:614867 [upload_job.py:push():96] Uploaded file /home/infres/vnguyen-23/.local/share/wandb/artifacts/staging/tmpvxm7dx2t
+2024-04-07 09:45:15,680 INFO    wandb-upload_1:614867 [upload_job.py:push():96] Uploaded file /home/infres/vnguyen-23/.local/share/wandb/artifacts/staging/tmpi_ru0wl8
+2024-04-07 09:45:16,836 INFO    SenderThread:614867 [sender.py:send_artifact():1428] sent artifact job-https___github.com_NVChienSetHust_WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint.git_NEq_pickle_analysis.py - {'id': 'QXJ0aWZhY3Q6Nzg2ODg2NDkw', 'digest': '8dbe067e2aaadf1b1f3f5865c6627c96', 'state': 'PENDING', 'aliases': [], 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjE1ODc4MjMxNQ==', 'latestArtifact': None}, 'version': 'latest'}
+2024-04-07 09:45:16,837 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:16,837 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 9
+2024-04-07 09:45:16,837 INFO    SenderThread:614867 [dir_watcher.py:finish():365] shutting down directory watcher
+2024-04-07 09:45:17,751 INFO    SenderThread:614867 [dir_watcher.py:finish():395] scan: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files
+2024-04-07 09:45:17,752 INFO    SenderThread:614867 [dir_watcher.py:finish():409] scan save: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/wandb-summary.json wandb-summary.json
+2024-04-07 09:45:17,752 INFO    SenderThread:614867 [dir_watcher.py:finish():409] scan save: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/output.log output.log
+2024-04-07 09:45:17,753 INFO    SenderThread:614867 [dir_watcher.py:finish():409] scan save: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/wandb-metadata.json wandb-metadata.json
+2024-04-07 09:45:17,753 INFO    SenderThread:614867 [dir_watcher.py:finish():409] scan save: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/requirements.txt requirements.txt
+2024-04-07 09:45:17,758 INFO    SenderThread:614867 [dir_watcher.py:finish():409] scan save: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/config.yaml config.yaml
+2024-04-07 09:45:17,763 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 10
+2024-04-07 09:45:17,769 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:17,769 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 10
+2024-04-07 09:45:17,775 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:17,775 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 10
+2024-04-07 09:45:17,775 INFO    SenderThread:614867 [file_pusher.py:finish():164] shutting down file pusher
+2024-04-07 09:45:18,085 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: keepalive
+2024-04-07 09:45:18,340 INFO    wandb-upload_0:614867 [upload_job.py:push():138] Uploaded file /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/wandb-summary.json
+2024-04-07 09:45:18,387 INFO    wandb-upload_1:614867 [upload_job.py:push():138] Uploaded file /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/output.log
+2024-04-07 09:45:18,483 INFO    wandb-upload_2:614867 [upload_job.py:push():138] Uploaded file /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/requirements.txt
+2024-04-07 09:45:18,501 INFO    wandb-upload_3:614867 [upload_job.py:push():138] Uploaded file /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/files/config.yaml
+2024-04-07 09:45:18,701 INFO    Thread-12 (_thread_body):614867 [sender.py:transition_state():587] send defer: 11
+2024-04-07 09:45:18,702 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:18,702 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 11
+2024-04-07 09:45:18,703 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:18,703 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 11
+2024-04-07 09:45:18,703 INFO    SenderThread:614867 [file_pusher.py:join():169] waiting for file pusher
+2024-04-07 09:45:18,703 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 12
+2024-04-07 09:45:18,703 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:18,704 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 12
+2024-04-07 09:45:18,704 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:18,704 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 12
+2024-04-07 09:45:18,821 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 13
+2024-04-07 09:45:18,821 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:18,822 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 13
+2024-04-07 09:45:18,822 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:18,822 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 13
+2024-04-07 09:45:18,822 INFO    SenderThread:614867 [sender.py:transition_state():587] send defer: 14
+2024-04-07 09:45:18,823 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: defer
+2024-04-07 09:45:18,823 INFO    HandlerThread:614867 [handler.py:handle_request_defer():170] handle defer: 14
+2024-04-07 09:45:18,824 DEBUG   SenderThread:614867 [sender.py:send():336] send: final
+2024-04-07 09:45:18,824 DEBUG   SenderThread:614867 [sender.py:send():336] send: footer
+2024-04-07 09:45:18,824 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: defer
+2024-04-07 09:45:18,824 INFO    SenderThread:614867 [sender.py:send_request_defer():583] handle sender defer: 14
+2024-04-07 09:45:18,825 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: poll_exit
+2024-04-07 09:45:18,826 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: poll_exit
+2024-04-07 09:45:18,826 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: server_info
+2024-04-07 09:45:18,827 DEBUG   SenderThread:614867 [sender.py:send_request():363] send_request: server_info
+2024-04-07 09:45:18,831 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: get_summary
+2024-04-07 09:45:18,831 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: sampled_history
+2024-04-07 09:45:19,009 INFO    MainThread:614867 [wandb_run.py:_footer_history_summary_info():3422] rendering history
+2024-04-07 09:45:19,009 INFO    MainThread:614867 [wandb_run.py:_footer_history_summary_info():3454] rendering summary
+2024-04-07 09:45:19,010 INFO    MainThread:614867 [wandb_run.py:_footer_sync_info():3380] logging synced files
+2024-04-07 09:45:19,010 DEBUG   HandlerThread:614867 [handler.py:handle_request():144] handle_request: shutdown
+2024-04-07 09:45:19,010 INFO    HandlerThread:614867 [handler.py:finish():842] shutting down handler
+2024-04-07 09:45:19,827 INFO    WriterThread:614867 [datastore.py:close():298] close: /home/infres/vnguyen-23/on_device_learning/WACV-developing-repo/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/NEq/wandb/run-20240407_094511-yss61pn3/run-yss61pn3.wandb
+2024-04-07 09:45:20,009 INFO    SenderThread:614867 [sender.py:finish():1504] shutting down sender
+2024-04-07 09:45:20,010 INFO    SenderThread:614867 [file_pusher.py:finish():164] shutting down file pusher
+2024-04-07 09:45:20,010 INFO    SenderThread:614867 [file_pusher.py:join():169] waiting for file pusher

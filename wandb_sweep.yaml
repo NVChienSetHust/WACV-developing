@@ -1,0 +1,93 @@
+command:
+  - python3
+  - ${program}
+method: grid
+metric:
+  goal: maximize
+  name: valid.val/best
+parameters:
+  dataset:
+    distribution: categorical
+    values:
+      # - c10
+      - c100
+      #- vww
+      #- flowers
+      #- food
+      #- pets
+      #- cub
+  initialization:
+    distribution: categorical
+    values:
+        #- SU
+        - random
+        # - full
+  manual_seed:
+    distribution: categorical
+    values:
+      - 0
+      # - 42
+      # - 100
+  net_name:
+    distribution: categorical
+    values:
+      #- mbv2
+      - pre_trained_mbv2
+      #- pre_trained_resnet18
+      # - pre_trained_resnet50
+      # - mcunet-5fps
+      # - mbv2-w0.35
+      # - proxyless-w0.3
+  neuron_selection:
+    distribution: categorical
+    values:
+              #- SU
+              #- velocity
+              - random
+              # - full
+  scheme:
+    distribution: categorical
+    values:
+      #- scheme_1
+      #- scheme_3
+      #- scheme_5
+      - scheme_7
+  resize_scale:
+    distribution: categorical
+    values:
+      - 0.08
+      #- 0.1
+      # - 0.3
+      # - 0.5
+      # - 0.8
+      # - 1.0
+  color_aug:
+    distribution: categorical
+    values:
+      - 0.4
+      # - 0.1
+      # - 0.7
+  base_batch_size:
+    distribution: categorical
+    values:
+      - 32
+      # - 16
+      # - 64
+      # - 128
+  image_size:
+    distribution: categorical
+    values:
+      # - 64
+      - 128
+      # - 224
+      # - 256
+      # - 512
+  base_lr:
+    distribution: categorical
+    values:
+      - 0.125
+      # - 0.001
+      # - 0.01
+      # - 0.1
+      # - 0.2
+program: NEq/train_classification.py

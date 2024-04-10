@@ -1,0 +1,103 @@
+wandb_version: 1
+
+NEq_config:
+  desc: null
+  value:
+    glob_num_params: 463216
+    initialization: full
+    neuron_selection: full
+    ratio: 1
+    total_num_params: 463216
+    velocity_mu: 0.5
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.14.0
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.10.12
+    start_time: 1712757636.155708
+    t:
+      1:
+      - 1
+      - 41
+      - 55
+      2:
+      - 1
+      - 41
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.10.12
+      5: 0.14.0
+      8:
+      - 5
+backward_config:
+  desc: null
+  value:
+    freeze_fc: 0
+    manual_weight_idx: 27-30-33-36-39-42-45-48
+    n_bias_update: 31
+    pw1_weight_only: 0
+    quantize_gradient: 0
+    train_scale: 0
+    weight_select_criteria: magnitude+
+    weight_update_ratio: 1-1-1-1-1-0.5-1-1
+data_provider:
+  desc: null
+  value:
+    base_batch_size: 32
+    color_aug: 0.4
+    dataset: cifar10
+    image_size: 128
+    n_worker: 10
+    new_num_classes: 10
+    resize_scale: 0.08
+    root: /home/infres/vnguyen-23/dataset/
+manual_seed:
+  desc: null
+  value: 0
+net_config:
+  desc: null
+  value:
+    cls_head: linear
+    dropout: 0.0
+    fine_tuning: true
+    mcu_head_type: fp
+    net_name: mcunet-in1
+project_name:
+  desc: null
+  value: Velocity_VS_Random_VS_SU_single_training
+resume:
+  desc: null
+  value: 0
+run_config:
+  desc: null
+  value:
+    base_lr: 0.01
+    bias_only: 0
+    bs256_lr: null
+    eval_per_epochs: 5
+    fc_lr10: 0
+    fc_only: 0
+    grid_ckpt_path: null
+    grid_output: null
+    lr_schedule_name: cosine
+    momentum: 0
+    n_block_update: -1
+    n_epochs: 200
+    no_wd_keys:
+    - norm
+    - bias
+    optimizer_name: sgd_nomom
+    warmup_epochs: 5
+    warmup_lr: 0
+    weight_decay: 0
+run_dir:
+  desc: null
+  value: ~/on_device_learning/WACV-2024-Ways-to-Select-Neurons-under-a-Budget-Constraint/saved-models
+wandb_sweep:
+  desc: null
+  value: 0
