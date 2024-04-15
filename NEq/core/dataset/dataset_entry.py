@@ -38,8 +38,7 @@ class MapDataset(data_utils.Dataset):
 
 def split_dataset(
     dataset: torch.utils.data.Dataset, 
-    val_percentage: float = 0.2,
-    velocity_len: int = 10
+    val_len: int = 10
 ) -> Tuple[torch.utils.data.Dataset, torch.utils.data.Dataset, torch.utils.data.Dataset]:
     """Randomly splits a `torch.utils.data.Dataset` instance in two non-overlapping separated `Datasets`.
 
@@ -53,38 +52,75 @@ def split_dataset(
     Returns:
         tuple: A tuple containing the two new datasets.
     """
-    dataset_size = len(dataset)
-    
-    val_size = int(val_percentage * dataset_size)
-    train_size = dataset_size - val_size
-    velocity_size = velocity_len
-
-    # Split dataset into training and remaining
-    train_dataset, remaining_dataset = data_utils.random_split(
+    dataset_length = int(len(dataset))
+    train_length = int(dataset_length - val_len)
+    train_dataset, valid_dataset = data_utils.random_split(
         dataset,
-        [train_size, val_size],
-        generator=torch.Generator().manual_seed(config.manual_seed)
+        [train_length, val_len],
+        generator=torch.Generator().manual_seed(config.manual_seed),
     )
 
-    # Take the first `velocity_len` samples from the training set for the velocity set
-    velocity_dataset = torch.utils.data.Subset(train_dataset, range(velocity_len))
-    
-    # Remove those samples from the training set
-    train_dataset = torch.utils.data.Subset(train_dataset, range(velocity_len, train_size))
-
-    # Remaining samples in the remaining_dataset will be used for validation
-    valid_dataset = remaining_dataset
-
-
-    return train_dataset, velocity_dataset, valid_dataset
+    return train_dataset, valid_dataset
 
 
 def build_dataset():
+    print("build dataset")
     if config.data_provider.dataset == "image_folder":
         train_dataset, test = image_folder(
             root=config.data_provider.root,
             transforms=ImageTransform(),
         )
+    # Flowers 102 has its own validation set
+    elif config.data_provider.dataset == "flowers102":
+        train, validation_set, test = FLOWERS102(
+            root=config.data_provider.root,
+            transforms=ImageTransform(),
+        )
+        if (
+            config.data_provider.use_validation_for_velocity
+            and config.data_provider.use_validation
+        ):
+            validation, validation_for_velocity = split_dataset(
+                dataset=validation_set
+            )  # Take 10 elements from validation_set
+            return {
+                "train": train,
+                "val": validation,
+                "test": test,
+                "val_velocity": validation_for_velocity,
+            }
+
+        elif (
+            config.data_provider.use_validation_for_velocity
+            and not config.data_provider.use_validation
+        ):
+            _, validation_for_velocity = split_dataset(
+                dataset=validation_set
+            )  # Take 10 elements from validation_set
+
+            train = MapDataset(train, ImageTransform()["train"])
+            validation_for_velocity = MapDataset(
+                validation_for_velocity, ImageTransform()["val"]
+            )
+            return {
+                "train": train,
+                "val_velocity": validation_for_velocity,
+                "test": test,
+            }
+
+        elif (
+            not config.data_provider.use_validation_for_velocity
+            and config.data_provider.use_validation
+        ):
+            train = MapDataset(train, ImageTransform()["train"])
+            validation = MapDataset(validation_set, ImageTransform()["val"])
+            return {"train": train, "val": validation, "test": test}
+
+        elif (
+            not config.data_provider.use_validation_for_velocity
+            and not config.data_provider.use_validation
+        ):
+            return {"train": train, "test": test}
 
     elif config.data_provider.dataset == "cifar10":
         train_dataset = torchvision.datasets.CIFAR10(
@@ -131,11 +167,64 @@ def build_dataset():
     else:
         raise NotImplementedError(config.data_provider.dataset)
 
-    # These operations allows for the creation of a small validation dataset from which to compute velocities
-    train, velocity, validation = split_dataset(train_dataset)
-    train, velocity, validation = MapDataset(train, ImageTransform()["train"]), MapDataset(
-        velocity, ImageTransform()["val"]), MapDataset(
-        validation, ImageTransform()["val"]
-    )
+    if (
+        config.data_provider.use_validation_for_velocity
+        and config.data_provider.use_validation
+    ):
+        train, validation_set = split_dataset(
+            dataset=train_dataset,
+            val_len=int(
+                config.data_provider.validation_percentage * len(train_dataset)
+            ),
+        )  # Divide the train_dataset into train and validation according to a predifined validation_percentage
+        validation, validation_for_velocity = split_dataset(
+            dataset=validation_set
+        )  # Take 10 elements from validation_set
 
-    return {"train": train, "vel": velocity, "val": validation, "test": test}
+        train = MapDataset(train, ImageTransform()["train"])
+        validation = MapDataset(validation, ImageTransform()["val"])
+        validation_for_velocity = MapDataset(
+            validation_for_velocity, ImageTransform()["val"]
+        )
+        return {
+            "train": train,
+            "val": validation,
+            "test": test,
+            "val_velocity": validation_for_velocity,
+        }
+
+    elif (
+        config.data_provider.use_validation_for_velocity
+        and not config.data_provider.use_validation
+    ):
+        train, validation_for_velocity = split_dataset(
+            dataset=train_dataset
+        )  # Take 10 elements from train_dataset
+
+        train = MapDataset(train, ImageTransform()["train"])
+        validation_for_velocity = MapDataset(
+            validation_for_velocity, ImageTransform()["val"]
+        )
+        return {"train": train, "val_velocity": validation_for_velocity, "test": test}
+
+    elif (
+        not config.data_provider.use_validation_for_velocity
+        and config.data_provider.use_validation
+    ):
+        train, validation = split_dataset(
+            dataset=train_dataset,
+            val_len=int(
+                config.data_provider.validation_percentage * len(train_dataset)
+            ),
+        )  # Divide the train_dataset into train and validation according to a predifined validation_percentage
+
+        train = MapDataset(train, ImageTransform()["train"])
+        validation = MapDataset(validation, ImageTransform()["val"])
+        return {"train": train, "val": validation, "test": test}
+
+    elif (
+        not config.data_provider.use_validation_for_velocity
+        and not config.data_provider.use_validation
+    ):
+        train = MapDataset(train_dataset, ImageTransform()["train"])
+        return {"train": train, "test": test}

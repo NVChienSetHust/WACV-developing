@@ -20,74 +20,77 @@ parameters:
     distribution: categorical
     values:
         #- SU
-        - random
-        # - full
+        # - random
+        - full
   manual_seed:
     distribution: categorical
     values:
       - 0
-      # - 42
-      # - 100
+      - 42
+      - 100
   net_name:
     distribution: categorical
     values:
       #- mbv2
-      - pre_trained_mbv2
+      # - pre_trained_mbv2
       #- pre_trained_resnet18
       # - pre_trained_resnet50
       # - mcunet-5fps
+      - mcunet-in1
       # - mbv2-w0.35
       # - proxyless-w0.3
   neuron_selection:
     distribution: categorical
     values:
-              #- SU
-              #- velocity
-              - random
-              # - full
+              # - SU
+              # - velocity
+              # - random
+              - full
   scheme:
     distribution: categorical
     values:
-      #- scheme_1
-      #- scheme_3
-      #- scheme_5
-      - scheme_7
+      # - mbv2_scheme_1
+      # - mbv2_scheme_3
+      # - mbv2_scheme_5
+      # - mcunet-5fps_scheme_1
+      # - mcunet-5fps_scheme_3
+      # - mcunet-5fps_scheme_5
+      - mcunet-in1_scheme_1
+      - mcunet-in1_scheme_3
+      - mcunet-in1_scheme_5
+      # - scheme_baseline
   resize_scale:
     distribution: categorical
     values:
       - 0.08
-      #- 0.1
-      # - 0.3
-      # - 0.5
-      # - 0.8
-      # - 1.0
   color_aug:
     distribution: categorical
     values:
       - 0.4
-      # - 0.1
-      # - 0.7
   base_batch_size:
     distribution: categorical
     values:
-      - 32
+      # - 32
       # - 16
-      # - 64
+      - 64
       # - 128
   image_size:
     distribution: categorical
     values:
-      # - 64
+      # - 96
       - 128
       # - 224
-      # - 256
-      # - 512
   base_lr:
     distribution: categorical
     values:
-      - 0.125
+      # - 0.125
       # - 0.001
-      # - 0.01
+      - 0.01
       # - 0.1
-      # - 0.2
+      - 0.025
+  # QAS:
+  #   distribution: categorical
+  #   values:
+  #     - 0
+  #     - 1
 program: NEq/train_classification.py

@@ -103,10 +103,16 @@ def select_mask_method(
     elif config.NEq_config.neuron_selection == "random":
         print("\n------------------------random-neuron-selection-------------------------\n")
         compute_random_budget_mask(
-            hooks, grad_mask, hooks_num_params_list, log_num_saved_params
+            hooks,
+            grad_mask,
+            hooks_num_params_list,
+            log_num_saved_params
         )
     elif config.NEq_config.neuron_selection == "full":
         print("\n------------------------full-neuron-selection-------------------------\n")
         compute_full_update(
-            hooks, grad_mask, hooks_num_params_list, log_num_saved_params
+            hooks,
+            grad_mask,
+            hooks_num_params_list,
+            log_num_saved_params
         )

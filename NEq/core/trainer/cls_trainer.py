@@ -57,13 +57,13 @@ class ClassificationTrainer(BaseTrainer):
                 "test/loss": test_loss.avg.item(),}
 
             # This split is performed to compute neuron velocities
-            elif split == "vel":
+            elif split == "val_velocity":
                 with tqdm(
-                    total=len(self.data_loader["vel"]),
+                    total=len(self.data_loader["val_velocity"]),
                     desc="Velocity",
                     disable=dist.rank() > 0,
                 ) as t:
-                    for images, labels in self.data_loader["vel"]:
+                    for images, labels in self.data_loader["val_velocity"]:
                         images, labels = images.cuda(), labels.cuda()
                         # compute output
                         output = self.model(images)
@@ -81,20 +81,7 @@ class ClassificationTrainer(BaseTrainer):
                         # compute output
                         output = self.model(images)
                         loss = val_criterion(output, labels)
-
-                        # test_loss.update(loss, images.shape[0])
-                        # acc1 = accuracy(output, labels, topk=(1,))[0]
-                        # test_top1.update(acc1.item(), images.shape[0])
-                        # t.set_postfix(
-                        #     {
-                        #         "loss": test_loss.avg.item(),
-                        #         "top1": test_top1.avg.item(),
-                        #         "batch_size": images.shape[0],
-                        #         "img_size": images.shape[2],
-                        #     }
-                        # )
-
-                        # Modify the code to validate
+                        
                         val_loss.update(loss, images.shape[0])
                         acc1 = accuracy(output, labels, topk=(1,))[0]
                         val_top1.update(acc1.item(), images.shape[0])
@@ -135,6 +122,10 @@ class ClassificationTrainer(BaseTrainer):
                 loss.backward()
                 for k in self.grad_mask:
                     zero_gradients(self.model, k, self.grad_mask[k])
+
+                if config.run_config.QAS:  # for SGDScale optimizer
+                    self.optimizer.pre_step(self.model)
+                    # print("Performing scailing")
 
                 self.optimizer.step()
 

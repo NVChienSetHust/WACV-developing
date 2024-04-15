@@ -50,28 +50,21 @@ import torch.backends.cudnn as cudnn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 
-# changed get_parser function to global parser value
-parser = argparse.ArgumentParser(
-    formatter_class=argparse.ArgumentDefaultsHelpFormatter
-)
+def get_parser():
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
 
-parser.add_argument(
-    "--config-file",
-    type=str,
-    default="transfer",
-    help="Which config file to call for training",
-)
+    parser.add_argument(
+        "--config-file",
+        type=str,
+        default="transfer",
+        help="Which config file to call for training",
+    )
 
-# net setting for training mcunet
-parser.add_argument('--net_id', type=str, default="None", help='net id of the model')
+    parsed = parser.parse_args()
 
-parser.add_argument('--net_precison', type=str, default="fp32", help='net precison of the model')
-
-
-parsed = parser.parse_args()
-# ---------------------global parser value-------------------------
-
-device = 'cuda'
+    return f"{parsed.config_file}.yaml"
 
 def build_config(config_file_path):
     load_transfer_config(config_file_path)
@@ -120,6 +113,7 @@ def main():
             drop_last=(split == "train"),
         )
 
+    print(data_loader)
     # Loading model
 
     if (
@@ -127,16 +121,10 @@ def main():
         or config.net_config.net_name == "proxyless-w0.3"
         or config.net_config.net_name == "mbv2-w0.35"
     ):
-        # model, total_neurons = get_model()
-        model, resolution, description = build_model(config.net_config.net_name, pretrained=True)
-        total_neurons = 0
-
-        for m in model.modules():
-            if isinstance(m, nn.Conv2d):
-                total_neurons += m.weight.shape[0]
-        print("Model attributes", model)
+        model, total_neurons = get_model()
+        # print("Model attributes", model)
         print("Model: ", config.net_config.net_name)
-        print("image_size: ", config.data_provider.image_size)
+        # print("image_size: ", config.data_provider.image_size)
         print("Total neuron: ", total_neurons)
     else:
         model, total_neurons = get_model()
@@ -153,20 +141,25 @@ def main():
             or config.net_config.net_name == "mbv2-w0.35"
         ):
             # Based on information from ~/.torch/mcunet/...json
-            # model.classifier = change_classifier_head(model.classifier)
-            pass
+            if not config.run_config.quantized:
+                model.classifier = change_classifier_head(model.classifier)
+            else: 
+                pass
         elif "mbv2" in config.net_config.net_name:
             model.classifier[1] = change_classifier_head(model.classifier[1])
         elif "vgg16" in config.net_config.net_name:
             model.classifier[6] = change_classifier_head(model.classifier[6])
         else:
             model.fc = change_classifier_head(model.fc)
-        
-    print("Model attributes", model)
 
 
     # Registering input and output shapes for each module
     model.apply(add_activation_shape_hook)
+
+    with torch.no_grad():
+        sample_input = torch.randn(1, 3, 128, 128)
+        _ = model(sample_input)
+        print("feed sample input to model")
 
     # setting the model to work on GPUs
     model.cuda()
@@ -177,17 +170,7 @@ def main():
 
     # Build optimizer and scheduler
     criterion = torch.nn.CrossEntropyLoss()
-    if (
-        "mcunet" in config.net_config.net_name
-        or config.net_config.net_name == "proxyless-w0.3"
-        or config.net_config.net_name == "mbv2-w0.35"
-    ):
-        optimizer = build_optimizer(model)
-        print("Conventional Optimizer")
-    else:
-        optimizer = get_optimizer(model)
-        print("Masked Optimizer")
-    
+    optimizer = get_optimizer(model)
     lr_scheduler = build_lr_scheduler(optimizer, len(data_loader["train"]))
 
     # Init dictionaries
@@ -214,14 +197,29 @@ def main():
 
     # First run on validation to get the PSP for epoch -1
     activate_hooks(trainer.hooks, True)
-    # activate_hooks(trainer.hooks, False) # change to false to avoid exceeding memory
-    val_info_dict = trainer.validate("vel")
+    
+    # Activate the hook for the first epoch
+    if config.NEq_config.neuron_selection == "velocity" or config.NEq_config.neuron_selection == "random":
+        activate_hooks(
+            trainer.hooks, True
+        )  # When velocity selection is used, activate the hook to calculate neuron velocity
+        val_info_dict = trainer.validate("val_velocity")
+    else:  # No need to compute neuron velocities for other selection methods, feed one input to access hook information
+        with torch.no_grad():
+            sample_input = sample_input.to(device='cuda')
+            _ = model(sample_input)
+        # pass
+    
 
     total_conv_flops = 0
     # Save the activations into the dict + compute flops per conv layer
     for k in trainer.hooks:
-        previous_activations[k] = trainer.hooks[k].get_samples_activation()
-        trainer.hooks[k].reset(previous_activations[k])
+        if (
+            config.NEq_config.neuron_selection == "velocity"  or config.NEq_config.neuron_selection == "random"
+        ):  # Save the previous activations for velocity computation
+            previous_activations[k] = trainer.hooks[k].get_samples_activation()
+            trainer.hooks[k].reset(previous_activations[k])
+        # compute flops per conv layer
         module = find_module_by_name(model, k)
         layer_flops = compute_Conv2d_flops(module)
         trainer.hooks[k].flops = layer_flops
@@ -238,6 +236,6 @@ def main():
 
 if __name__ == "__main__":
     # add net_id for choosing mcunet model
-    config_file_path = f"{parsed.config_file}.yaml"
+    config_file_path = get_parser()
     build_config(config_file_path)
     main()

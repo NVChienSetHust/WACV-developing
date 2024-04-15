@@ -176,7 +176,6 @@ def get_global_gradient_mask(log_num_saved_params, hooks, grad_mask, epoch):
         _ = deepcopy(hooks[k].get_delta_of_delta().detach().clone())
         velocity = deepcopy(hooks[k].get_velocity().detach().clone())
         velocity_list.append(velocity / hooks[k].single_neuron_num_params)
-
         hooks_num_params_list.append(
             torch.Tensor([hooks[k].single_neuron_num_params] * len(velocity))
         )
@@ -185,7 +184,6 @@ def get_global_gradient_mask(log_num_saved_params, hooks, grad_mask, epoch):
         hooks[k].update_delta_buffer()
 
         hooks[k].reset()
-
     select_mask_method(
         hooks,
         grad_mask,
@@ -194,3 +192,4 @@ def get_global_gradient_mask(log_num_saved_params, hooks, grad_mask, epoch):
         log_num_saved_params,
         epoch,
     )
+    

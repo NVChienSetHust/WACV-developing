@@ -76,22 +76,22 @@ build_config(config_file_path)
 # Path to your pickle file
 pickle_file_path = f'{config.net_config.net_name}.pkl'
 
-# model = build_mcu_model()
+model = build_mcu_model()
 
 # model, total_neurons = get_model()
-model, resolution, description = build_model(config.net_config.net_name, pretrained=True)
-total_neurons = 0
+# model, resolution, description = build_model(config.net_config.net_name, pretrained=True)
+# total_neurons = 0
 
-for m in model.modules():
-    if isinstance(m, nn.Conv2d):
-        total_neurons += m.weight.shape[0]
-print("Model attributes", model)
-print("Model: ", config.net_config.net_name)
-print("image_size: ", config.data_provider.image_size)
-print("Total neuron: ", total_neurons)
+# for m in model.modules():
+#     if isinstance(m, nn.Conv2d):
+#         total_neurons += m.weight.shape[0]
+# print("Model attributes", model)
+# print("Model: ", config.net_config.net_name)
+# print("image_size: ", config.data_provider.image_size)
+# print("Total neuron: ", total_neurons)
 
 # Open a file for writing
-output_file_path = f"{config.net_config.net_name}_architecture.txt"
+output_file_path = f"quantized_{config.net_config.net_name}_architecture.txt"
 with open(output_file_path, "w") as f:
     # Pretty-print the loaded configuration to the file
     pprint.pprint(model, stream=f)

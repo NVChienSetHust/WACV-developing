@@ -1,3 +1,9 @@
 runs/
 
 *.pyc
+
+NEq/wandb/
+
+wandb/
+
+~/

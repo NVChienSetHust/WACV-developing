@@ -151,17 +151,6 @@ class BaseTrainer(object):
     def run_training(self, total_neurons, total_conv_flops):
         test_info_dict = None
         val_info_dict = None # Add validation information dict
-        
-        # compute total_num_params of the model
-        # total_num_params = count_net_num_conv_params(self.model)
-
-        # # Computing the budget in terms of number of parameters
-        # config.NEq_config.glob_num_params = compute_update_budget(
-        #     total_num_params, config.NEq_config.ratio
-        # )
-        # config.NEq_config.glob_num_params = compute_update_budget(
-        #     config.NEq_config.total_num_params, config.NEq_config.ratio
-        # )
 
         for epoch in range(
             self.start_epoch,
@@ -218,74 +207,59 @@ class BaseTrainer(object):
                     )
 
             # Log the amount of frozen neurons
-            frozen_neurons, saved_flops = log_masks(
-                self.model, self.hooks, self.grad_mask, total_neurons, total_conv_flops
-            )
+            use_baseline = config.NEq_config.neuron_selection == "full"
+            if not use_baseline:
+                frozen_neurons, saved_flops = log_masks(
+                    self.model,
+                    self.hooks,
+                    self.grad_mask,
+                    total_neurons,
+                    total_conv_flops,
+                )
 
             # Train step
             activate_hooks(self.hooks, False)
             train_info_dict = self.train_one_epoch(epoch)
             logger.info(f"epoch {epoch}: f{train_info_dict}")
 
-            # Step to compute neurons velocities
-            activate_hooks(self.hooks, True)
-            _ = self.validate("vel")
+            # Validation step to compute neurons velocities
+            if config.NEq_config.neuron_selection == "velocity" or config.NEq_config.neuron_selection == "random":
+                activate_hooks(self.hooks, True)
+                self.validate("val_velocity")
 
             # Validation step
             activate_hooks(self.hooks, False)
+            if config.data_provider.use_validation:
+                if (
+                    (epoch + 1) % config.run_config.eval_per_epochs == 0
+                    or epoch
+                    == config.run_config.n_epochs + config.run_config.warmup_epochs - 1
+                ):
+                    activate_hooks(self.hooks, False)
+                    val_info_dict = self.validate("val")
+                    is_best = val_info_dict["val/top1"] > self.best_val
+                    self.best_val = max(val_info_dict["val/top1"], self.best_val)
+                    if is_best:
+                        logger.info(
+                            " * New best acc (epoch {}): {:.2f}".format(
+                                epoch, self.best_val
+                            )
+                        )
+                    val_info_dict["val/best"] = self.best_val
+                    logger.info(f"epoch {epoch}: {val_info_dict}")
 
+                    # save model
+                    self.save(
+                        epoch=epoch,
+                        is_best=is_best,
+                    )
+
+            # Testing step at the last epoch load the best validation model
             if (
-                (epoch + 1) % config.run_config.eval_per_epochs == 0
+                (epoch + 1) % config.run_config.test_per_epochs == 0
                 or epoch
                 == config.run_config.n_epochs + config.run_config.warmup_epochs - 1
             ):
-                activate_hooks(self.hooks, False)
-                val_info_dict = self.validate("val")
-                is_best = val_info_dict["val/top1"] > self.best_val
-                self.best_val = max(val_info_dict["val/top1"], self.best_val)
-                if is_best:
-                    logger.info(
-                        " * New best acc (epoch {}): {:.2f}".format(
-                            epoch, self.best_val
-                        )
-                    )
-                val_info_dict["val/best"] = self.best_val
-                logger.info(f"epoch {epoch}: {val_info_dict}")
-
-                # save model
-                self.save(
-                    epoch=epoch,
-                    is_best=is_best,
-                )
-
-
-            # # Testing step to observe accuracy evolution
-            # if (
-            #     (epoch + 1) % config.run_config.eval_per_epochs == 0
-            #     or epoch
-            #     == config.run_config.n_epochs + config.run_config.warmup_epochs - 1
-            # ):
-            #     activate_hooks(self.hooks, False)
-            #     test_info_dict = self.validate("test")
-            #     is_best = test_info_dict["test/top1"] > self.best_test
-            #     self.best_test = max(test_info_dict["test/top1"], self.best_test)
-            #     if is_best:
-            #         logger.info(
-            #             " * New best acc (epoch {}): {:.2f}".format(
-            #                 epoch, self.best_test
-            #             )
-            #         )
-            #     test_info_dict["test/best"] = self.best_test
-            #     logger.info(f"epoch {epoch}: {test_info_dict}")
-
-            #     # save model
-            #     self.save(
-            #         epoch=epoch,
-            #         is_best=is_best,
-            #     )
-
-            # Testing step at the last epoch load the best validation model
-            if epoch == config.run_config.n_epochs + config.run_config.warmup_epochs - 1:
                 activate_hooks(self.hooks, False)
                 test_info_dict = self.validate("test")
                 is_best = test_info_dict["test/top1"] > self.best_test
@@ -301,10 +275,13 @@ class BaseTrainer(object):
 
             # Logs
             if dist.rank() <= 0:
+                if use_baseline:
+                    saved_flops = None
+                    frozen_neurons = 0
                 wandb.log(
                     {
-                        # "Perc of frozen conv neurons": frozen_neurons,
-                        # "FLOPS stats": saved_flops,
+                        "Perc of frozen conv neurons": frozen_neurons,
+                        "FLOPS stats": saved_flops,
                         "train": train_info_dict,
                         "val": val_info_dict, #add val to wandb log
                         "test": test_info_dict,
@@ -315,9 +292,16 @@ class BaseTrainer(object):
                 )
 
             # Not reseting grad mask and log in case of SU selection
-            if not config.NEq_config.neuron_selection == "SU":
+            if (
+                not config.NEq_config.neuron_selection == "SU"
+                or not config.NEq_config.neuron_selection == "full"
+            ):
                 self.grad_mask = {}
                 log_num_saved_params = {}
+                # Computing the gradients mask on the whole network depending on the neuron selection method
+                get_global_gradient_mask(
+                    log_num_saved_params, self.hooks, self.grad_mask, epoch
+                )
             elif epoch == 0 and not config.NEq_config.initialization == "SU":
                 self.grad_mask = {}
                 log_num_saved_params = {}
@@ -331,10 +315,5 @@ class BaseTrainer(object):
                     config.backward_config,
                     log_num_saved_params,
                 )
-
-            # Computing the gradients mask on the whole network depending on the neuron selection method
-            get_global_gradient_mask(
-                log_num_saved_params, self.hooks, self.grad_mask, epoch
-            )
 
         return val_info_dict
