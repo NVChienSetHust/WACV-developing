@@ -1,161 +1,275 @@
-Sequential(
-  (0): QuantizedConv2dDiff(3, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
-  (1): Sequential(
-    (0): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16)
-        (1): QuantizedConv2dDiff(16, 8, kernel_size=(1, 1), stride=(1, 1))
+ProxylessNASNets(
+  (first_conv): ConvLayer(
+    (conv): Conv2d(3, 16, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
+    (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+    (act): ReLU6(inplace=True)
+  )
+  (blocks): ModuleList(
+    (0): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (depth_conv): Sequential(
+          (conv): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=16, bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(16, 8, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(8, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
     )
-    (1): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(8, 24, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(24, 24, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=24)
-        (2): QuantizedConv2dDiff(24, 16, kernel_size=(1, 1), stride=(1, 1))
+    (1): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(8, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(24, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(24, 24, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2), groups=24, bias=False)
+          (bn): BatchNorm2d(24, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(24, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
     )
-    (2): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 48, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48)
-        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
+    (2): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(16, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(48, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
+      (shortcut): IdentityLayer()
     )
-    (3): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 48, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(48, 48, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=48)
-        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
-      )
+    (3-4): 2 x MobileInvertedResidualBlock(
+      (mobile_inverted_conv): ZeroLayer()
+      (shortcut): IdentityLayer()
     )
-    (4): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 48, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48)
-        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (5): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 48, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(48, 48, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=48)
-        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (6): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 48, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(48, 48, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=48)
-        (2): QuantizedConv2dDiff(48, 16, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (7): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(16, 96, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(96, 96, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=96)
-        (2): QuantizedConv2dDiff(96, 24, kernel_size=(1, 1), stride=(1, 1))
+    (5): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(16, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(48, 48, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=48, bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(48, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
     )
-    (8): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(24, 72, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(72, 72, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=72)
-        (2): QuantizedConv2dDiff(72, 24, kernel_size=(1, 1), stride=(1, 1))
+    (6): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(16, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(48, 48, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=48, bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(48, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
+      (shortcut): IdentityLayer()
     )
-    (9): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(24, 72, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(72, 72, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=72)
-        (2): QuantizedConv2dDiff(72, 24, kernel_size=(1, 1), stride=(1, 1))
+    (7-8): 2 x MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(16, 48, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(48, 48, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=48, bias=False)
+          (bn): BatchNorm2d(48, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(48, 16, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(16, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
+      (shortcut): IdentityLayer()
     )
-    (10): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(24, 72, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(72, 72, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=72)
-        (2): QuantizedConv2dDiff(72, 24, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (11): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(24, 144, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(144, 144, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=144)
-        (2): QuantizedConv2dDiff(144, 32, kernel_size=(1, 1), stride=(1, 1))
-      )
-    )
-    (12): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(32, 96, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
-        (2): QuantizedConv2dDiff(96, 32, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (13): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(32, 96, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
-        (2): QuantizedConv2dDiff(96, 32, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (14): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(32, 96, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96)
-        (2): QuantizedConv2dDiff(96, 32, kernel_size=(1, 1), stride=(1, 1))
-      )
-      (q_add): QuantizedElementwiseDiff()
-    )
-    (15): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(32, 192, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(192, 192, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=192)
-        (2): QuantizedConv2dDiff(192, 64, kernel_size=(1, 1), stride=(1, 1))
+    (9): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(16, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(96, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(96, 96, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=96, bias=False)
+          (bn): BatchNorm2d(96, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(96, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(24, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
     )
-    (16): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(64, 384, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
-        (2): QuantizedConv2dDiff(384, 64, kernel_size=(1, 1), stride=(1, 1))
+    (10-12): 3 x MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(24, 72, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(72, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(72, 72, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=72, bias=False)
+          (bn): BatchNorm2d(72, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(72, 24, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(24, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
+      (shortcut): IdentityLayer()
     )
-    (17): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(64, 192, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192)
-        (2): QuantizedConv2dDiff(192, 64, kernel_size=(1, 1), stride=(1, 1))
+    (13): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(24, 144, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(144, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(144, 144, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=144, bias=False)
+          (bn): BatchNorm2d(144, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(144, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(32, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
     )
-    (18): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(64, 192, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192)
-        (2): QuantizedConv2dDiff(192, 64, kernel_size=(1, 1), stride=(1, 1))
+    (14-16): 3 x MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(32, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(96, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(96, 96, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=96, bias=False)
+          (bn): BatchNorm2d(96, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(96, 32, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(32, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
-      (q_add): QuantizedElementwiseDiff()
+      (shortcut): IdentityLayer()
     )
-    (19): QuantizedMbBlockDiff(
-      (conv): Sequential(
-        (0): QuantizedConv2dDiff(64, 384, kernel_size=(1, 1), stride=(1, 1))
-        (1): QuantizedConv2dDiff(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384)
-        (2): QuantizedConv2dDiff(384, 96, kernel_size=(1, 1), stride=(1, 1))
+    (17): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(32, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), groups=192, bias=False)
+          (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(192, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+    )
+    (18): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384, bias=False)
+          (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (shortcut): IdentityLayer()
+    )
+    (19-20): 2 x MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(64, 192, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(192, 192, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=192, bias=False)
+          (bn): BatchNorm2d(192, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(192, 64, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(64, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (shortcut): IdentityLayer()
+    )
+    (21): MobileInvertedResidualBlock(
+      (mobile_inverted_conv): MBInvertedConvLayer(
+        (inverted_bottleneck): Sequential(
+          (conv): Conv2d(64, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (depth_conv): Sequential(
+          (conv): Conv2d(384, 384, kernel_size=(7, 7), stride=(1, 1), padding=(3, 3), groups=384, bias=False)
+          (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+          (act): ReLU6(inplace=True)
+        )
+        (point_linear): Sequential(
+          (conv): Conv2d(384, 96, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (bn): BatchNorm2d(96, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+        )
       )
     )
   )
-  (2): Identity()
-  (3): QuantizedAvgPoolDiff()
-  (4): ScaledLinear(in_features=96, out_features=10, bias=True)
-  (5): Flatten(start_dim=1, end_dim=-1)
+  (feature_mix_layer): ConvLayer(
+    (conv): Conv2d(96, 384, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    (bn): BatchNorm2d(384, eps=0.001, momentum=0.1, affine=True, track_running_stats=True)
+    (act): ReLU6(inplace=True)
+  )
+  (classifier): LinearLayer(
+    (linear): Linear(in_features=384, out_features=1000, bias=True)
+  )
 )
